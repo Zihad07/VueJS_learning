@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <style>
+            .title {
+                border: 1px solid;
+                color: green;
+            }
+        </style>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row my-4">
+            <div class="col-md-6">
+
+                <div class="card card-body" id="app">
+                    <p v-if="show">You can see me <span> :)</span></p>
+                    <p v-else>Now im am working...</p>
+
+                    <template v-if="show">
+                        <h2>heading-2</h2>
+                        <p>Inside template</p>
+
+                    </template>
+                    <p v-show="show">Do you see me also?</p>
+
+                    <button @click="show = !show" class="btn btn-primary">Switch</button>
+                </div>
+            </div>
+
+            <div class="col-md-6 my-2" id="myapp">
+                <div class="card card-body" >
+                    <ul class="list-group">
+                    <li v-for="(ingredent,index) in ingredents" class="list-group-item">{{index}} -> {{  ingredent }}</li>
+                    </ul>
+                </div>
+
+                <div class="card card-body my-2">
+                    <template v-for="person in persons" class="my-2">
+                        <p>Name: {{person.name}}</p>
+                        <p>Color: {{person.color}}</p>
+                        <hr>
+                    </template>
+                </div>
+
+                <div v-for="person in persons">
+                    <ul class="list-group my-2">
+                         <li class="list-group-item" v-for="(value,key) in person">
+                            {{ key }} : {{ value }}
+                         </li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+    <script>
+        new Vue({
+            el:"#myapp",
+            data: {
+                show:true,
+
+                ingredents: ['meat','fruit','cookies'],
+
+                persons: [
+                    {name:'Max',age:27,color: 'red'},
+                    {name: 'Alex', age:'22', color:'blue'}
+                ],
+            }
+        })
+    </script>
+</body>
+
+</html>
