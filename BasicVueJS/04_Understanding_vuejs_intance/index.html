@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <style>
+            .title {
+                border: 1px solid;
+                color: green;
+            }
+        </style>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row my-4">
+            <div class="col-md-6 mx-auto">
+
+                <div class="card card-body" id="app">
+                    <h1>{{title}}</h1>
+                    <button v-on:click="show">Show Paragraph</button>
+                    <p v-if="showParagraph">This is not always</p>
+                </div>
+                <div class="card card-body" id="app2">
+                    <h1>{{title}}</h1>
+                    <button @click="change">Change App-1 title</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+    <script>
+       var vm1 = new Vue({
+            el: "#app",
+            data: {
+                title: 'The VueJS Instance',
+                showParagraph: false
+            },
+
+            methods: {
+                show: function () {
+                    this.showParagraph = true;
+                    this.updateTitle('The VueJS Instance (Updated)')
+                },
+
+                updateTitle: function (title) {
+                    this.title = title;
+                }
+            },
+
+            computed: {
+                lowercaseTitle: function () {
+
+                    return this.title.toLowerCase();
+                }
+            }
+        });
+
+        setTimeout(function () {
+            vm1.title ="title Change after 3-seconds";
+        },3000)
+        // new instance
+
+      var vm2 =  new Vue({
+            el: "#app2",
+            data: {
+                title: 'The Title Second',
+            },
+
+            methods: {
+                change : function() {
+                    vm1.title = "Changed";
+                },
+            }
+        });
+    </script>
+</body>
+
+</html>
