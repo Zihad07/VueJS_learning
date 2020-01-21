@@ -17,6 +17,8 @@
                 color: green;
             }
         </style>
+
+    <link rel="stylesheet" href="css.css">
     <script src="vue.js"></script>
 </head>
 
@@ -26,39 +28,9 @@
             <div class="col-md-6 mx-auto">
 
                <div id="app">
-                    <div class="product d-flex justify-content-between alings-center">
-                        <div class="product-imgage" class="width:300px; height:300px">
-                            <!-- <img v-bind:src="image" v-bind:alt="altText"> -->
-                            <img :src="image" :alt="altText">
-                        </div>
-
-                        <div class="product-info">
-                            <h2>{{ product }}</h2>
-                            <p v-if="inStock">In Stock</p>
-                            <p v-else>Out of Stock</p>
-
-                            <!-- <p v-if="inventory > 10">In Stock</p>
-                            <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out!</p>
-                            <p v-else>Out of Stock</p> -->
-
-                            <ul class="list-group">
-                                <l v-for="detail in  details" class="list-group-item">
-                                    >> {{ detail }}
-                                </l>
-                            </ul>
-
-                            <div v-for="variant in variants">
-                                <p @mouseover="updateProduct(variant.variantImage)">{{ variant.variantColor}}</p>
-                            </div>
-
-                            <div class="cart">
-                                <p>Card({{ cart }})</p>
-                            </div>
-
-                            <button v-on:click="addToCart">(+) Add to cart</button>
-                            <button v-on:click="DecreaseToCart">(-) Decrease to cart</button>
-                        </div>
-                    </div>
+                    <product :premium="premium"></product>
+                    <product></product>
+                    <product></product>
                </div>
             </div>
         </div>
@@ -75,7 +47,8 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
 
-    <script src="app.js"></script>
+    <!-- <script src="app.js"></script> -->
+    <script src="myapp.js"></script>
 
  
 </body>
