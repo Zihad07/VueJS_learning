@@ -1,4 +1,5 @@
 Vue.component('product', {
+    // props: [premium];
     props: {
         premium: {
             type: Boolean,
@@ -36,16 +37,13 @@ Vue.component('product', {
             
         </div>
 
-        <div class="cart">
-            <p>Card({{ cart }})</p>
-        </div>
-
+     
         <button v-on:click="addToCart"
          :disabled="!inStock"
          >
          (+) Add to cart
         </button>
-        <button v-on:click="DecreaseToCart"
+        <button v-on:click="deleteToCart"
             :class="{disabledButton: !inStock}"
             >
             (-) Decrease to cart
@@ -65,7 +63,8 @@ Vue.component('product', {
             // inventory: 20,
             details: ["80% cotton", "20% polyester", "Gender-neutral"],
 
-            variants: [{
+            variants: [
+                {
                     variantId: 2244,
                     variantColor: "green",
                     variantImage: "./assets/vm-socks-green.jpg",
@@ -79,7 +78,7 @@ Vue.component('product', {
                 },
             ],
 
-            cart: 0,
+           
         }
     },
     methods: {
@@ -87,17 +86,20 @@ Vue.component('product', {
         //     this.cart += 1;
         // },
         addToCart() {
-            this.cart += 1;
+            // this.cart += 1;
+            this.$emit('add-to-cart',this.variants[this.selectedVariant].variantId);
         },
-        DecreaseToCart() {
-            if (this.cart < 0) {
-                this.cart = 0;
-                alert('Not negative Number granted');
+        deleteToCart() {
+
+            this.$emit('delete-to-cart');
+            // if (this.cart < 0) {
+            //     this.cart = 0;
+            //     alert('Not negative Number granted');
 
 
-            } else {
-                this.cart -= 1;
-            }
+            // } else {
+            //     this.cart -= 1;
+            // }
         },
 
         updateProduct(index) {
@@ -124,11 +126,124 @@ Vue.component('product', {
     }
 });
 
+Vue.component('product-review',{
+    template:`
+    <div class="card card-body p-2 my-2">
+
+    <p v-if="errors.length">
+        <b>Please correct the following error(s)</b>
+        <ul class="list-group">
+            <li v-for="error in errors" class="list-group-item">
+                {{ error }}
+            </li>
+        </ul>
+    </p>
+    <form action="" @submit.prevent="onSubmit">
+        <div class="from-group">
+            <label for="name">Name:</label>
+            <input v-model="name" class="form-control" type="text" id="name" placeholder="name">
+        </div>
+        <div class="from-group">
+            <label for="review">Review:</label>
+            <textarea v-model="review" id="review" cols="15" rows="5" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="rating">Rating</label>
+            <select id="rating" v-model.number="rating" class="form-control">
+                <option >5</option>
+                <option >4</option>
+                <option >3</option>
+                <option >2</option>
+                <option >1</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary btn-block" value="Submit">
+        </div>
+
+
+    
+    </form>
+</div>
+    `,
+
+    data() {
+        return {
+            name: null,
+            review: null,
+            rating: null,
+            errors: []
+        }
+    },
+
+    methods: {
+        onSubmit() {
+            if(this.name && this.review && this.rating ){
+                let produceReview = {
+                    name: this.name,
+                    review: this.review,
+                    rating: this.rating
+                };
+    
+                // send review
+                this.$emit('review-submitted',produceReview);
+    
+                // reset review value
+                this.name = null;
+                this.review = null;
+                this.rating = null;
+                this.errors = []
+            }else{
+                if(this.errors.length) {
+                    this.errors = []
+                }
+                if(!this.name) {
+                    this.errors.push("Name required");
+                }
+                if(!this.review) {
+                    this.errors.push("Review Required");
+                }
+                if(!this.rating) {
+                    this.errors.push("Rating required");
+                }
+            }
+
+        },
+
+        reviewsReset() {
+            this.errors = []
+        }
+    }
+})
+
 
 var app = new Vue({
     el: '#app',
 
     data: {
         premium: true,
+        cart: [],
+        reviews: []
+    },
+    methods: {
+        updateCart(id) {
+            this.cart.push(id);
+        },
+        deleteCart(){
+            if(this.cart.length > 0){
+                this.cart.pop();
+            }else{
+                alert('No item exit to Unselect.');
+                return;
+            }
+
+        },
+        addReview(productReview) {
+            this.reviews.push(productReview);
+        },
+
+        
     }
 })

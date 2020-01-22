@@ -28,9 +28,23 @@
             <div class="col-md-6 mx-auto">
 
                <div id="app">
-                    <product :premium="premium"></product>
-                    <product></product>
-                    <product></product>
+                    <div class="cart">
+                            <p>Card({{ cart.length }})</p>
+                        </div>
+                    <product :premium="premium" @add-to-cart="updateCart" @delete-to-cart="deleteCart"></product>
+                    
+                    <div>
+                        <h2>Reviews</h2>
+                        <p v-if="!reviews.length">There is no reviews yet.</p>
+                        <div v-else>
+                                <div v-for="review in reviews" class="card card-body my-2 p-3">
+                                    <div class="card-title">{{review.name}}</div>
+                                    <p>Rating: {{review.rating}}</p>
+                                    <p class="lead">{{review.review}}</p>
+                                </div>
+                        </div>
+                    </div>
+                    <product-review @review-submitted="addReview"></product-review>
                </div>
             </div>
         </div>
