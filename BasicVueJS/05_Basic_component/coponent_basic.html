@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Basic Component</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 my-4">
+                <div id="components-demo">
+                    <button-counter></button-counter>
+                    <button-counter></button-counter>
+                    <button-counter></button-counter>
+                    <hr>
+
+                   
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 my-4">
+                <div id="blog-posts-demo"
+                    
+                >
+                    
+
+                    <!-- <blog-posts title="My journy with Vue"></blog-posts>
+                    <blog-posts title="Why Vue is so fun"></blog-posts> -->
+                    <blog-posts
+                    :style="{fontSize:postFontSize+'rem'}"
+                    v-for="post in posts"
+                    :keyid="post.id"
+                    :title="post.title"
+                    @enlarge-text="postFontSize += 1"
+                    ></blog-posts>
+                </div>
+            </div>
+        </div>
+    </div>
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+   <script src="vue.js"></script>
+   <script src="component.js"></script>
+  </body>
+</html>

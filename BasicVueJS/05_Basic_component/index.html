@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Learning Basic Component</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <style>
+            .title {
+                border: 1px solid;
+                color: green;
+            }
+        </style>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row my-4">
+            <div class="col-md-6" id="app">
+                <div class="card card-body">
+                    <my-cmp></my-cmp>
+                    <hr>
+                    <my-cmp></my-cmp>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+     
+     Vue.component('my-cmp',{
+         data() {
+             return {
+                 status: "Critical"
+             }
+         },
+
+         methods: {
+            changeStatus() {
+                this.status = this.status !== 'Normal'? 'Normal' : 'Critical'
+            }
+         },
+
+         template: `
+            <div>
+                <p>Server Status: {{ status }}</p>
+                <button class="btn btn-primary" @click="changeStatus">
+                       ChangeStatus
+                </button>
+            </div>
+         `
+
+     });
+
+     var myCom =new Vue({
+         el: "#app"
+     });
+    </script>
+</body>
+
+</html>
